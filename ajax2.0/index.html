@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      margin: 0;
+      top: 0;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+
+    li {
+      list-style: none;
+
+    }
+
+  </style>
+</head>
+<body>
+<ul id="container">
+  <script type="text/html" id="temp">
+    {{each $data item}}
+    <li>
+      <img src="{{item.verticalPic}}" style="width: 200px;height: 200px;">
+      {{item.nameNoHtml}}
+    </li>
+    {{/each}}
+  </script>
+</ul>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
+<script>
+  /*$.ajax({
+
+    url:"https://search.damai.cn/searchajax.html?keyword=&cty=&ctl=%E6%BC%94%E5%94%B1%E4%BC%9A&sctl=&tsg=0&st=&et=&order=1&pageSize=30&currPage=1&tn=",
+    success(data) {
+
+      let res = JSON.parse(data);
+      console.log(res);
+      var str = template('temp',res.pageData.resultData)
+      document.querySelector('#container').innerHTML = str;
+    }
+  })*/
+
+  $(function () {
+    $.get("https://search.damai.cn/searchajax.html?keyword=&cty=&ctl=%E6%BC%94%E5%94%B1%E4%BC%9A&sctl=&tsg=0&st=&et=&order=1&pageSize=30&currPage=1&tn=",
+    data => {
+      let res = JSON.parse(data);
+      console.log(res);
+      var str = template('temp',res.pageData.resultData)
+      document.querySelector('#container').innerHTML = str;
+    })
+  })
+
+
+  /*
+    $(function () {
+      let ajax = new XMLHttpRequest();
+
+      ajax.open('GET', '',
+          true)
+      ajax.send();
+      ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4) {
+          console.log('请求完成');
+          if (ajax.status === 200) {
+            console.log('请求成功');
+            //console.log(ajax1.0.response);
+            let res = JSON.parse(ajax.response)
+            console.log(res.pageData.resultData);
+            var str = template('temp',res.pageData.resultData)
+            document.querySelector('#container').innerHTML = str;
+
+          } else if (ajax.status === 404) {
+            console.log('请求失败');
+          }
+        }
+
+      }
+    })
+  */
+
+
+</script>
+
+</body>
+</html>
