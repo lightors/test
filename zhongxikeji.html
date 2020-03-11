@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      margin: 0;
+      top: 0;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+
+    li {
+      list-style: none;
+
+    }
+
+  </style>
+</head>
+<body>
+<ul id="container">
+  <script type="text/html" id="temp">
+    {{each $data item}}
+    <li>
+      <img src="{{item.verticalPic}}" style="width: 200px;height: 200px;">
+      {{item.nameNoHtml}}
+    </li>
+    {{/each}}
+  </script>
+</ul>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
+<script>
+  $.ajax({
+
+    url:"https://www.zx-o.com/f/logged/products/getArticlesByModuleAndKeywords?module=product_type&type=type_one",
+
+    contentType:"application/x-www-form-urlencoded",
+    success(data) {
+
+      let res = JSON.parse(data);
+      console.log(res);
+      var str = template('temp',res.pageData.resultData)
+      document.querySelector('#container').innerHTML = str;
+    }
+  })
+
+  $(function () {
+    /*$.get("https://www.zx-o.com/f/logged/products/getArticlesByModuleAndKeywords?module=product_type&type=type_one",
+
+        data => {
+          let res = JSON.parse(data);
+          console.log(res);
+        /!*  var str = template('temp',res.pageData.resultData)
+          document.querySelector('#container').innerHTML = str;*!/
+        })
+*/
+
+/*    $.getJSON('https://www.zx-o.com/f/logged/products/getArticlesByModuleAndKeywords?module=product_type&type=type_one?callback=?',function(jsondata)
+    {
+      //处理获得的json数据
+      let res = JSON.parse(jsondata);
+      console.log(res);
+    })*/
+
+
+
+
+  })
+
+
+  /*
+    $(function () {
+      let ajax = new XMLHttpRequest();
+
+      ajax.open('GET', '',
+          true)
+      ajax.send();
+      ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4) {
+          console.log('请求完成');
+          if (ajax.status === 200) {
+            console.log('请求成功');
+            //console.log(ajax1.0.response);
+            let res = JSON.parse(ajax.response)
+            console.log(res.pageData.resultData);
+            var str = template('temp',res.pageData.resultData)
+            document.querySelector('#container').innerHTML = str;
+
+          } else if (ajax.status === 404) {
+            console.log('请求失败');
+          }
+        }
+
+      }
+    })
+  */
+
+
+</script>
+
+</body>
+</html>
